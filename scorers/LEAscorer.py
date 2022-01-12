@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import itertools
 
+
 class LEAScorer:
 
     def __init__(self, truth_cluster, system_cluster):
@@ -48,19 +49,13 @@ class LEAScorer:
         enumerator_p = 0
         denominator_p = 0
         for key, value in self.truth_links.items():
+
             links_c = value[0]
-
             selflink_c = value[2]
-
-
             length_c = value[1]
 
-
             resolution_score_1 = sum([len(set(links_c).intersection(set(links_r[0]))) / selflink_c for key, links_r in self.out_links.items()])
-
-
-            resolution_score = length_c * (resolution_score_1)
-
+            resolution_score = length_c * resolution_score_1
 
             enumerator_r += resolution_score
             denominator_r += length_c
@@ -73,7 +68,7 @@ class LEAScorer:
 
             resolution_score_1 = sum([len(set(links_c).intersection(set(links_r[0]))) / selflink_c for key, links_r in self.truth_links.items()])
 
-            resolution_score = length_c * (resolution_score_1)
+            resolution_score = length_c * resolution_score_1
             enumerator_p += resolution_score
             denominator_p += length_c
 
@@ -82,6 +77,4 @@ class LEAScorer:
 
         F1 = 2 * (recall * precision) / (recall + precision)
 
-        return recall,precision,F1
-
-
+        return recall, precision, F1
