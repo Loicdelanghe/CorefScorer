@@ -73,9 +73,14 @@ def evaluate(parsed_input, key_ents, parsed_output, response_ents, metric, sysme
         test = CEAFScorer(parsed_input, parsed_output)
         recall_CEAF, precision_CEAF, F1_CEAF = test.CEAF_score()
 
+        recall_conll = (recall_MUC + recall_B3 + recall_CEAF)/3
+        precision_conll = (precision_MUC + precision_B3 + precision_CEAF)/3
+        F1_conll = (F1_MUC + F1_B3 + F1_CEAF)/3
+
         data = [["MUC", recall_MUC, precision_MUC, F1_MUC],
         ["B3", recall_B3, precision_B3, F1_B3],
         ["CEAFe", recall_CEAF, precision_CEAF, F1_CEAF],
+        ["CONLL", recall_conll, precision_conll, F1_conll],
         ["BLANC", recall_BLANC, precision_BLANC, F1_BLANC],
         ["LEA", recall_LEA, precision_LEA, F1_LEA]]
 
